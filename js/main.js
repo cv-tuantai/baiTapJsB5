@@ -4,6 +4,7 @@ function domID(id) {
 }
 
 /* Bài 1 */
+
 // input: Dom tới các thẻ input lấy thông tin: điểm chuẩn, khu vực, đối tượng, điểm môn thứ 1, điểm môn thứ 2, điểm môn thứ 3: kiểu number
 domID("btnResult").onclick = function () {
   var benchmark = Number(domID("benchmark").value);
@@ -44,24 +45,60 @@ domID("btnResult").onclick = function () {
 };
 
 /* Bài 2 */
+
+// Khai báo biến const giá tiền từng mức Kw
+const kw_1 = 500;
+const kw_2 = 650;
+const kw_3 = 850;
+const kw_4 = 1100;
+const kw_5 = 1300;
+
+// Tạo hàm tính tiền theo từng mức Kw
+function calculateKm1(inputKw) {
+  return inputKw * kw_1;
+}
+
+function calculateKm2(inputKw) {
+  return (inputKw - 50) * kw_2;
+}
+
+function calculateKm3(inputKw) {
+  return (inputKw - 100) * kw_3;
+}
+
+function calculateKm4(inputKw) {
+  return (inputKw - 200) * kw_4;
+}
+
+function calculateKm5(inputKw) {
+  return (inputKw - 350) * kw_5;
+}
 // input: Dom tới các thẻ input lấy thông tin: Tên người dùng kiểu string và số kw tiêu thụ kiểu number
 var btnBill = (domID("btnBill").onclick = function () {
   var inputName = domID("inputName").value;
   var inputKw = Number(domID("inputKw").value);
   // output: Số tiền điện: kiểu number
   var eleBill = 0;
-  // process: Dùng IF để tính tiền điện theo từng mốc kw
+  // process: Gọi hàm để tính tiền điện theo từng mốc kw
   if (inputKw > 0 && inputKw <= 50) {
-    eleBill = inputKw * 500;
+    eleBill = calculateKm1(inputKw);
   } else if (inputKw > 50 && inputKw <= 100) {
-    eleBill = 50 * 500 + (inputKw - 50) * 650;
+    eleBill = calculateKm1(50) + calculateKm2(inputKw);
   } else if (inputKw > 100 && inputKw <= 200) {
-    eleBill = 50 * 500 + 50 * 650 + (inputKw - 100) * 850;
+    eleBill = calculateKm1(50) + calculateKm2(100) + calculateKm3(inputKw);
   } else if (inputKw > 200 && inputKw <= 350) {
-    eleBill = 50 * 500 + 50 * 650 + 100 * 850 + (inputKw - 200) * 1100;
+    eleBill =
+      calculateKm1(50) +
+      calculateKm2(100) +
+      calculateKm3(200) +
+      calculateKm4(inputKw);
   } else if (inputKw > 350) {
     eleBill =
-      50 * 500 + 50 * 650 + 100 * 850 + 150 * 1100 + (inputKw - 350) * 1300;
+      calculateKm1(50) +
+      calculateKm2(100) +
+      calculateKm3(200) +
+      calculateKm4(350) +
+      calculateKm5(inputKw);
   } else {
     alert("Số kw không hợp lệ, vui lòng nhập lại");
   }
@@ -75,6 +112,45 @@ var btnBill = (domID("btnBill").onclick = function () {
 });
 
 /* Bài 3 */
+
+// Khai báo biến const các mức thuế suất
+const tax_1 = 0.05;
+const tax_2 = 0.1;
+const tax_3 = 0.15;
+const tax_4 = 0.2;
+const tax_5 = 0.25;
+const tax_6 = 0.3;
+const tax_7 = 0.35;
+
+// Tạo hàm tính thuế theo từng bậc thuế
+function calculateTax1(taxableIncome) {
+  return taxableIncome * tax_1;
+}
+
+function calculateTax2(taxableIncome) {
+  return (taxableIncome - 60e6) * tax_2;
+}
+
+function calculateTax3(taxableIncome) {
+  return (taxableIncome - 120e6) * tax_3;
+}
+
+function calculateTax4(taxableIncome) {
+  return (taxableIncome - 210e6) * tax_4;
+}
+
+function calculateTax5(taxableIncome) {
+  return (taxableIncome - 384e6) * tax_5;
+}
+
+function calculateTax6(taxableIncome) {
+  return (taxableIncome - 624e6) * tax_6;
+}
+
+function calculateTax7(taxableIncome) {
+  return (taxableIncome - 960e6) * tax_7;
+}
+
 // input: Dom tới các thẻ input lấy thông tin: Họ tên: string, tổng thu nhập năm: number, số người phụ thuộc: number
 var btnTax = (domID("btnTax").onclick = function () {
   var taxName = domID("taxName").value;
@@ -86,54 +162,58 @@ var btnTax = (domID("btnTax").onclick = function () {
   var taxableIncome = totalSalary - 4e6 * 12 - dependent * 1.6e6 * 12;
   //   Tính tiền thuế theo bậc thuế lũy tiến
   if (taxableIncome >= 0 && taxableIncome <= 60e6 && dependent >= 0) {
-    totalTax = taxableIncome * 0.05;
+    totalTax = calculateTax1(taxableIncome);
   } else if (taxableIncome > 60e6 && taxableIncome <= 120e6 && dependent >= 0) {
-    totalTax = 60e6 * 0.05 + (taxableIncome - 60e6) * 0.1;
+    totalTax = calculateTax1(60e6) + calculateTax2(taxableIncome);
   } else if (
     taxableIncome > 120e6 &&
     taxableIncome <= 210e6 &&
     dependent >= 0
   ) {
-    totalTax = 60e6 * 0.05 + 60e6 * 0.1 + (taxableIncome - 120e6) * 0.15;
+    totalTax =
+      calculateTax1(60e6) + calculateTax2(120e6) + calculateTax3(taxableIncome);
   } else if (
     taxableIncome > 210e6 &&
     taxableIncome <= 384e6 &&
     dependent >= 0
   ) {
     totalTax =
-      60e6 * 0.05 + 60e6 * 0.1 + 90e6 * 0.15 + (taxableIncome - 210e6) * 0.2;
+      calculateTax1(60e6) +
+      calculateTax2(120e6) +
+      calculateTax3(210e6) +
+      calculateTax4(taxableIncome);
   } else if (
     taxableIncome > 384e6 &&
     taxableIncome <= 624e6 &&
     dependent >= 0
   ) {
     totalTax =
-      60e6 * 0.05 +
-      60e6 * 0.1 +
-      90e6 * 0.15 +
-      174e6 * 0.2 +
-      (taxableIncome - 384e6) * 0.25;
+      calculateTax1(60e6) +
+      calculateTax2(120e6) +
+      calculateTax3(210e6) +
+      calculateTax4(384e6) +
+      calculateTax5(taxableIncome);
   } else if (
     taxableIncome > 624e6 &&
     taxableIncome <= 960e6 &&
     dependent >= 0
   ) {
     totalTax =
-      60e6 * 0.05 +
-      60e6 * 0.1 +
-      90e6 * 0.15 +
-      174e6 * 0.2 +
-      240e6 * 0.25 +
-      (taxableIncome - 624e6) * 0.3;
+      calculateTax1(60e6) +
+      calculateTax2(120e6) +
+      calculateTax3(210e6) +
+      calculateTax4(384e6) +
+      calculateTax5(624e6) +
+      calculateTax6(taxableIncome);
   } else if (taxableIncome > 960e6 && dependent >= 0) {
     totalTax =
-      60e6 * 0.05 +
-      60e6 * 0.1 +
-      90e6 * 0.15 +
-      174e6 * 0.2 +
-      240e6 * 0.25 +
-      336e6 * 0.3 +
-      (taxableIncome - 960e6) * 0.35;
+      calculateTax1(60e6) +
+      calculateTax2(120e6) +
+      calculateTax3(210e6) +
+      calculateTax4(384e6) +
+      calculateTax5(624e6) +
+      calculateTax6(960e6) +
+      calculateTax7(taxableIncome);
   } else if (taxableIncome < 0) {
     totalTax = 0;
   } else {
